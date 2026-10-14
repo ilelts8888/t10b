@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đề Cương Ôn Tập Tiếng Anh 10 - Ms Lê Hằng English</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --primary-bg: #8854C0;
+            --correct-color: #00D26A;
+            --wrong-color: #FF4757;
+            --card-bg: #ffffff;
+            --text-color: #2d3436;
+            --accent-yellow: #FDCB6E;
+            --accent-cyan: #00C9A7;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(-45deg, #8854C0, #3498db, #00C9A7, #FDCB6E);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            padding: 20px 10px;
+            color: var(--text-color);
+            position: relative;
+        }
+
+        /* SVG Pattern Floating Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 100 100"><text x="10" y="30" font-size="20">⭐</text><text x="50" y="70" font-size="20">🌸</text><text x="70" y="25" font-size="20">🐱</text><text x="20" y="80" font-size="20">🍎</text><text x="80" y="85" font-size="18">☁️</text></svg>');
+            opacity: 0.25;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatingPattern 20s linear infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes floatingPattern {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header Styling */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 20px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 0 rgba(0,0,0,0.15);
+            margin-bottom: 20px;
+            border: 3px solid #6c5ce7;
+        }
+
+        .teacher-title {
+            font-size: 1rem;
+            color: #6c5ce7;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .exam-title {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #2d3436;
+        }
+
+        .notice-box {
+            background: #fff3cd;
+            border: 3px solid #ffeba2;
+            border-left: 8px solid #ffc107;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 0 rgba(0,0,0,0.08);
+        }
+
+        .notice-title {
+            color: #856404;
+            font-weight: 900;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .notice-content {
+            color: #856404;
+            font-size: 0.95rem;
+            font-weight: 700;
+            line-height: 1.5;
+        }
+
+        /* Section Title Header */
+        .section-header {
+            background: #fd79a8;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 15px;
+            font-weight: 800;
+            margin: 30px 0 15px 0;
+            box-shadow: 0 5px 0 #e84393;
+            display: inline-block;
+        }
+
+        .reading-passage {
+            background: #eef5ff;
+            border: 2px dashed #0984e3;
+            padding: 18px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #2d3436;
+        }
+
+        .reading-passage h4 {
+            color: #0984e3;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        /* Question Card */
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 22px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 0 #dfe6e9, 0 15px 25px rgba(0,0,0,0.1);
+            border: 3px solid #f1f2f6;
+            transition: transform 0.2s;
+        }
+
+        .question-number {
+            font-weight: 900;
+            color: #6c5ce7;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+
+        .question-text u {
+            color: #d63031;
+            font-weight: 900;
+            text-decoration: underline;
+        }
+
+        /* Options Grid */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .option-btn {
+            background: #ffffff;
+            border: 3px solid #e0e0e0;
+            border-bottom: 6px solid #b2bec3;
+            border-radius: 16px;
+            padding: 12px 15px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #2d3436;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.15s ease;
+            outline: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-btn:hover:not(.disabled) {
+            transform: translateY(-2px);
+            border-color: #74b9ff;
+            background: #f0f8ff;
+        }
+
+        .option-btn:active:not(.disabled) {
+            transform: translateY(2px);
+            border-bottom-width: 3px;
+        }
+
+        .option-btn.correct {
+            background-color: #d4edda !important;
+            border-color: var(--correct-color) !important;
+            border-bottom: 6px solid #00b894 !important;
+            color: #155724 !important;
+        }
+
+        .option-btn.wrong {
+            background-color: #f8d7da !important;
+            border-color: var(--wrong-color) !important;
+            border-bottom: 6px solid #d63031 !important;
+            color: #721c24 !important;
+        }
+
+        .option-btn.disabled {
+            cursor: default;
+            opacity: 0.85;
+        }
+
+        /* Shake animation for wrong answer */
+        .shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        /* Explanation Box */
+        .explanation-box {
+            display: none;
+            margin-top: 18px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 16px;
+            border-left: 6px solid #00cec9;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .explanation-title {
+            font-weight: 800;
+            color: #00cec9;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .explanation-content {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #2d3436;
+        }
+
+        .explanation-content p {
+            margin-bottom: 6px;
+        }
+
+        /* Submit Button */
+        .submit-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .btn-submit {
+            background: #00b894;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 900;
+            padding: 16px 40px;
+            border: none;
+            border-radius: 50px;
+            border-bottom: 6px solid #00896c;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            background: #00cec9;
+        }
+
+        .btn-submit:active {
+            transform: translateY(2px);
+            border-bottom-width: 2px;
+        }
+
+        /* Result Popup Overlay */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 4px solid #6c5ce7;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: #fdcb6e;
+            color: #2d3436;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 900;
+            margin: 15px auto;
+            border: 6px solid #ffeaa7;
+            box-shadow: 0 6px 0 rgba(0,0,0,0.1);
+        }
+
+        .feedback-msg {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #2d3436;
+            margin: 15px 0;
+            line-height: 1.5;
+        }
+
+        .close-btn {
+            background: #6c5ce7;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 4px 0 #4b6584;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="teacher-title">Giáo viên tạo: Ms Lê Hằng English</div>
+        <div class="exam-title">ĐỀ CƯƠNG ÔN TẬP 8 TUẦN KỲ 1 - LỚP 10 (2026-2027)</div>
+    </header>
+
+    <div class="notice-box">
+        <div class="notice-title">⚠️ LỜI NHẮC CỰC KỲ QUAN TRỌNG ⚠️</div>
+        <div class="notice-content">
+            Chỉ có đọc kỹ giải thích ngay sau mỗi câu, sau đó ghi lại từ vựng/cấu trúc mới vào vở để học thì mới thực sự giỏi lên.<br>
+            Làm cho xong mà không đọc giải thích hay đọc qua loa không ghi chép thì chỉ tốn thời gian vô ích!<br>
+            <strong>Kéo tới đâu, làm tới đó! 🎯</strong>
+        </div>
+    </div>
+
+    <div id="quiz-container">
+        <!-- Questions will be injected here dynamically -->
+    </div>
+
+    <div class="submit-container">
+        <button class="btn-submit" onclick="calculateFinalScore()">🎉 NỘP BÀI THI 🎉</button>
+    </div>
+</div>
+
+<!-- Modal result popup -->
+<div class="modal-overlay" id="scoreModal">
+    <div class="modal-card">
+        <h2>🎉 KẾT QUẢ BÀI THI 🎉</h2>
+        <div class="score-circle" id="scoreDisplay">0/40</div>
+        <div class="feedback-msg" id="feedbackText">...</div>
+        <button class="close-btn" onclick="closeModal()">Đóng & Kiểm tra lại</button>
+    </div>
+</div>
+
+<script>
+// --- WEB AUDIO API FOR GAMIFIED SOUNDS ---
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+let audioCtx = null;
+
+function initAudio() {
+    if (!audioCtx) {
+        audioCtx = new AudioContext();
+    }
+}
+
+function playCorrectSound() {
+    initAudio();
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+    osc.frequency.exponentialRampToValueAtTime(659.25, audioCtx.currentTime + 0.15); // E5
+    osc.frequency.exponentialRampToValueAtTime(783.99, audioCtx.currentTime + 0.3); // G5
+    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.4);
+}
+
+function playWrongSound() {
+    initAudio();
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(220, audioCtx.currentTime); // A3
+    osc.frequency.exponentialRampToValueAtTime(130.81, audioCtx.currentTime + 0.35); // C3
+    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.4);
+}
+
+// FULL 40 QUESTIONS DATA WITH DETAILED EXPLANATIONS
+const rawQuestions = [
+    // PART I: PHONETICS & GRAMMAR & VOCABULARY
+    {
+        id: 1,
+        type: "mcq",
+        section: "I. PHẦN TRẮC NGHIỆM",
+        instruction: "Mark the letter A, B, C or D to indicate the word whose underlined part differs from the other three in pronunciation in each of the following questions.",
+        question: "Question 1:",
+        options: [
+            { text: "housew<u>i</u>fe", value: "A" },
+            { text: "<u>i</u>nterested", value: "B" },
+            { text: "op<u>i</u>nion", value: "C" },
+            { text: "d<u>i</u>fferent", value: "D" }
+        ],
+        answer: "A",
+        explanation: `
+            <p><strong>1. Phân tích phát âm chữ cái "i" trong 4 đáp án:</strong></p>
+            <p>A. housew<u>i</u>fe /'haʊs.waɪf/ -> phát âm là /aɪ/</p>
+            <p>B. <u>i</u>nterested /'ɪn.trə.stɪd/ -> phát âm là /ɪ/</p>
+            <p>C. op<u>i</u>nion /ə'pɪn.jən/ -> phát âm là /ɪ/</p>
+            <p>D. d<u>i</u>fferent /'dɪf.rənt/ -> phát âm là /ɪ/</p>
+            <p><strong>2. Dịch nghĩa:</strong> housewife (n): bà nội trợ; interested (adj): quan tâm; opinion (n): ý kiến; different (adj): khác biệt.</p>
+            <p><strong>3. Tại sao chọn A?</strong> Đáp án A phần gạch chân gieo âm /aɪ/, trong khi B, C, D đều phát âm là âm ngắn /ɪ/.</p>
+        `
+    },
+    {
+        id: 2,
+        type: "mcq",
+        instruction: "Mark the letter A, B, C or D to indicate the word whose underlined part differs from the other three in pronunciation in each of the following questions.",
+        question: "Question 2:",
+        options: [
+            { text: "support<u>s</u>", value: "A" },
+            { text: "earn<u>s</u>", value: "B" },
+            { text: "divide<u>s</u>", value: "C" },
+            { text: "prefer<u>s</u>", value: "D" }
+        ],
+        answer: "A",
+        explanation: `
+            <p><strong>1. Phân tích phát âm đuôi -s/es:</strong></p>
+            <p>A. support<u>s</u> /sə'pɔːts/ -> phát âm đuôi là /s/ vì kết thúc bằng âm vô thanh /t/.</p>
+            <p>B. earn<u>s</u> /ɜːnz/ -> phát âm đuôi là /z/.</p>
+            <p>C. divide<u>s</u> /dɪ'vaɪdz/ -> phát âm đuôi là /z/.</p>
+            <p>D. prefer<u>s</u> /prɪ'fɜːz/ -> phát âm đuôi là /z/.</p>
+            <p><strong>2. Dịch nghĩa:</strong> supports (v): ủng hộ; earns (v): kiếm tiền; divides (v): chia sẻ/phân chia; prefers (v): thích hơn.</p>
+            <p><strong>3. Tại sao chọn A?</strong> Đáp án A đuôi -s được phát âm là /s/, còn các từ B, C, D có đuôi -s phát âm là /z/.</p>
+        `
+    },
+    {
+        id: 3,
+        type: "mcq",
+        instruction: "Mark the letter A, B, C or D to indicate the correct answer to each of the following questions.",
+        question: "Question 3: He quickly _________ his toys and puts them away before bedtime.",
+        options: [
+            { text: "A. cheers up", value: "A" },
+            { text: "B. grows up", value: "B" },
+            { text: "C. picks up", value: "C" },
+            { text: "D. look after", value: "D" }
+        ],
+        answer: "C",
+        explanation: `
+            <p><strong>1. Phân tích cụm động từ (Phrasal Verbs):</strong></p>
+            <p>A. cheer up (phr.v): làm cho vui lên / cổ vũ.</p>
+            <p>B. grow up (phr.v): trưởng thành / lớn lên.</p>
+            <p>C. pick up (phr.v): nhặt lên, dọn dẹp đồ đạc.</p>
+            <p>D. look after (phr.v): chăm sóc (chưa chia ngôi thứ 3 số ít - chệch ngữ pháp).</p>
+            <p><strong>2. Dịch câu:</strong> "Cậu ấy nhanh chóng nhặt đồ chơi của mình lên và cất đi trước giờ đi ngủ."</p>
+            <p><strong>3. Tại sao chọn C?</strong> "Pick up toys" mang nghĩa nhặt/thu dọn đồ chơi phù hợp ngữ cảnh hành động trước khi đi ngủ.</p>
+        `
+    },
+    {
+        id: 4,
+        type: "mcq",
+        instruction: "Mark the letter A, B, C or D to indicate the correct answer to each of the following questions.",
+        question: "Question 4: They have plenty of _________ to enjoy games and outdoor activities on Sundays.",
+        options: [
+            { text: "A. value", value: "A" },
+            { text: "B. housework", value: "B" },
+            { text: "C. gratitude", value: "C" },
+            { text: "D. playtime", value: "D" }
+        ],
+        answer: "D",
+        explanation: `
+            <p><strong>1. Phân tích 4 đáp án từ vựng:</strong></p>
+            <p>A. value (n): giá trị.</p>
+            <p>B. housework (n): việc nhà.</p>
+            <p>C. gratitude (n): lòng biết ơn.</p>
+            <p>D. playtime (n): giờ chơi, thời gian vui chơi.</p>
+            <p><strong>2. Dịch nghĩa câu:</strong> "Họ có rất nhiều thời gian vui chơi để thưởng thức các trò chơi và hoạt động ngoài trời vào Chủ Nhật."</p>
+            <p><strong>3. Tại sao chọn D?</strong> Cụm "enjoy games and outdoor activities" đòi hỏi danh từ mang ý nghĩa thời gian thư giãn giải trí -> "playtime".</p>
+        `
+    },
+    {
+        id: 5,
+        type: "mcq",
+        instruction: "Mark the letter A, B, C or D to indicate the correct answer to each of the following questions.",
+        question: "Question 5: My parents _________ away on business, so now my grandmother _________ us.",
+        options: [
+            { text: "A. is/ looks after", value: "A" },
+            { text: "B. are/ looks after", value: "B" },
+            { text: "C. are/ is looking after", value: "C" },
+            { text: "D. are/ are looking after", value: "D" }
+        ],
+        answer: "C",
+        explanation: `
+            <p><strong>1. Phân tích cấu trúc ngữ pháp:</strong></p>
+            <p> Chủ ngữ vế 1 là "My parents" (bố mẹ tôi -> số nhiều) => đi với động từ tobe "are".</p>
+            <p> Vế 2 có từ nhận biết "now" (hiện tại / ngay lúc này) thể hiện sự việc đang diễn ra tạm thời => dùng thì Hiện tại tiếp diễn (Present Continuous): is + V-ing.</p>
+            <p> Chủ ngữ "my grandmother" (bà tôi -> số ít) => dùng "is looking after".</p>
+            <p><strong>2. Dịch câu:</strong> "Bố mẹ tôi đang đi công tác, vì vậy hiện tại bà tôi đang chăm sóc chúng tôi."</p>
+            <p><strong>3. Chọn C</strong> hợp lý về cả chia danh từ số nhiều/số ít và thì Hiện tại tiếp diễn.</p>
+        `
+    },
+    {
+        id: 6,
+        type: "mcq",
+        instruction: "Mark the letter A, B, C or D to indicate the correct answer to each of the following questions.",
+        question: "Question 6: My dad _________ money as a breadwinner while my mom _________ most of the housework as a housewife.",
+        options: [
+            { text: "A. earns/ is doing", value: "A" },
+            { text: "B. is earning/ does", value: "B" },
+            { text: "C. is earning/ is doing", value: "C" },
+            { text: "D. earns/ does", value: "D" }
+        ],
+        answer: "D",
+        explanation: `
+            <p><strong>1. Phân tích thì ngữ pháp:</strong></p>
+            <p> Sự việc diễn tả thói quen, phân công vai trò mang tính sự thật lịch sự / lâu dài trong gia đình => Dùng thì Hiện tại đơn (Present Simple).</p>
+            <p> "My dad" (số ít) -> earns / "My mom" (số ít) -> does.</p>
+            <p><strong>2. Dịch câu:</strong> "Bố tôi kiếm tiền với tư cách là trụ cột gia đình trong khi mẹ tôi đảm nhận hầu hết việc nhà như một người nội trợ."</p>
+            <p><strong>3. Chọn D</strong> là thì Hiện tại đơn chính xác cho sự thật thường xuyên.</p>
+        `
+    },
+    {
+        id: 7,
+        type: "mcq",
+        instruction: "Mark the letter A, B, C or D to indicate the correct answer to each of the following questions.",
+        question: "Question 7: I am so proud _________ what I have done to support my parents.",
+        options: [
+            { text: "A. with", value: "A" },
+            { text: "B. for", value: "B" },
+            { text: "C. of", value: "C" },
+            { text: "D. to", value: "D" }
+        ],
+        answer: "C",
+        explanation: `
+            <p><strong>1. Phân tích cấu trúc giới từ:</strong></p>
+            <p> Ta có cấu trúc cố định: <strong>be proud of + N/V-ing</strong>: tự hào về điều gì.</p>
+            <p><strong>2. Dịch nghĩa:</strong> "Tôi rất tự hào về những gì mình đã làm để hỗ trợ bố mẹ."</p>
+            <p><strong>3. Tại sao chọn C?</strong> Đi với tính từ "proud" chỉ có giới từ "of". Các giới từ with, for, to đều không đi với proud trong ngữ cảnh này.</p>
+        `
+    },
+    {
+        id: 8,
+        type: "mcq",
+        instruction: "Mark the letter A, B, C or D to indicate the correct answer to each of the following questions.",
+        question: "Question 8: Spending quality time together helps build strong family _________ and create lasting memories.",
+        options: [
+            { text: "A. experiences", value: "A" },
+            { text: "B. bonds", value: "B" },
+            { text: "C. success", value: "C" },
+            { text: "D. respect", value: "D" }
+        ],
+        answer: "B",
+        explanation: `
+            <p><strong>1. Phân tích Collocation (Cụm từ cố định):</strong></p>
+            <p>A. experiences (n): trải nghiệm.</p>
+            <p>B. bonds (n): mối liên kết, tình gắn kết.</p>
+            <p>C. success (n): sự thành công.</p>
+            <p>D. respect (n): sự tôn trọng.</p>
+            <p> Cụm từ: <strong>family bonds</strong> = sự gắn kết gia đình / tình cảm gia đình.</p>
+            <p><strong>2. Dịch câu:</strong> "Dành thời gian chất lượng bên nhau giúp xây dựng sự gắn kết gia đình mạnh mẽ và tạo ra những kỷ niệm lâu dài."</p>
+        `
+    },
+    // PARAGRAPH REARRANGEMENT
+    {
+        id: 9,
+        type: "mcq",
+        instruction: "Mark the letter A, B, C, or D on your answer sheet to indicate the correct arrangement of the sentences to make a meaningful paragraph/ letter in each of the following questions.",
+        question: "Question 9:<br>a. Jack: That's great! Helping with chores shows respect and builds strong family bonds.<br>b. Lucy: Yes, I often do the laundry and tidy up the kitchen. My parents really appreciate it.<br>c. Jack: Hey Lucy, do you help your parents with the household chores?",
+        options: [
+            { text: "A. c-a-b", value: "A" },
+            { text: "B. b-a-c", value: "B" },
+            { text: "C. c-b-a", value: "C" },
+            { text: "D. b-c-a", value: "D" }
+        ],
+        answer: "C",
+        explanation: `
+            <p><strong>1. Trật tự hội thoại logic:</strong></p>
+            <p> Step 1: Jack mở đầu bằng câu hỏi khảo sát/mở đầu: (c) "Hey Lucy, do you help your parents with the household chores?"</p>
+            <p> Step 2: Lucy trả lời câu hỏi: (b) "Yes, I often do the laundry..."</p>
+            <p> Step 3: Jack nhận xét và khen ngợi: (a) "That's great! Helping with chores..."</p>
+            <p><strong>2. Trật tự đúng là: c - b - a (Đáp án C).</strong></p>
+        `
+    },
+    {
+        id: 10,
+        type: "mcq",
+        instruction: "Mark the letter A, B, C, or D on your answer sheet to indicate the correct arrangement of the sentences to make a meaningful paragraph/ letter in each of the following questions.",
+        question: "Question 10:<br>a. Firstly, we should clean up all areas regularly. For example, we can organise clean-up activities at weekends.<br>b. There are three things we can do to improve the environment in our school.<br>c. Secondly, we ought to set up more rubbish bins. For instance, we can put more rubbish bins in the school gate, in front of each building, or in the playground.<br>d. In conclusion, we can improve the environment in our school in many ways and even small actions can make a big difference.<br>e. Finally, we should plant more trees. To give an example, we can encourage students to plant trees or flowers in our school because this reduces CO2 and makes the air clean.",
+        options: [
+            { text: "A. e-a-d-b-c", value: "A" },
+            { text: "B. e-b-a-d-c", value: "B" },
+            { text: "C. e-b-a-c-d", value: "C" },
+            { text: "D. b-a-c-e-d", value: "D" }
+        ],
+        answer: "D",
+        explanation: `
+            <p><strong>1. Phân tích bố cục đoạn văn nghị luận:</strong></p>
+            <p> (b) Câu chủ đề (Topic Sentence): "There are three things..."</p>
+            <p> (a) Ý thứ nhất (Firstly...)</p>
+            <p> (c) Ý thứ hai (Secondly...)</p>
+            <p> (e) Ý thứ ba (Finally...)</p>
+            <p> (d) Câu kết luận (In conclusion...)</p>
+            <p><strong>2. Trật tự chuẩn logic: b - a - c - e - d (Đáp án D).</strong></p>
+        `
+    },
+    {
+        id: 11,
+        type: "mcq",
+        instruction: "Mark the letter A, B, C, or D on your answer sheet to indicate the correct arrangement of the sentences to make a meaningful paragraph/ letter in each of the following questions.",
+        question: "Question 11:<br>a. I am writing to apply for a volunteer position at the head office. I heard the announcement about this position on radio last Sunday.<br>b. I am available for an interview on any weekday from 8.00 am to 11.00 am. If my application is successful, I can start on 15th January 2022.<br>c. I am interested in the job duties at the head office. I want to help you welcome guests and visitors to the office and receive and sort donations.<br>d. Yours faithfully,<br>e. I look forward to hearing from you.<br>f. Dear Sir or Madam,",
+        options: [
+            { text: "A. e-b-a-c-f-d", value: "A" },
+            { text: "B. e-c- f-d-b-a", value: "B" },
+            { text: "C. b-c-d-e-a-f", value: "C" },
+            { text: "D. f-a-c-b-e-d", value: "D" }
+        ],
+        answer: "D",
+        explanation: `
+            <p><strong>1. Phân tích cấu trúc thư xin việc (Application Letter):</strong></p>
+            <p> (f) Xưng hô đầu thư: "Dear Sir or Madam,"</p>
+            <p> (a) Lý do viết thư: "I am writing to apply..."</p>
+            <p> (c) Năng lực & sự quan tâm công việc: "I am interested in..."</p>
+            <p> (b) Thời gian phỏng vấn & bắt đầu làm: "I am available..."</p>
+            <p> (e) Lời kết: "I look forward to hearing from you."</p>
+            <p> (d) Chào cuối thư: "Yours faithfully,"</p>
+            <p><strong>2. Đáp án chính xác: f - a - c - b - e - d (Đáp án D).</strong></p>
+        `
+    },
+    // CLOSEST & OPPOSITE
+    {
+        id: 12,
+        type: "mcq",
+        instruction: "Mark the letter A, B, C or D to indicate the word(s) CLOSEST in meaning to the underlined word(s) in each of the following questions.",
+        question: "Question 12: We always <u>split</u> the housework equally - my mom cooks, my dad cleans the house and I do the washing-up.",
+        options: [
+            { text: "A. join", value: "A" },
+            { text: "B. break", value: "B" },
+            { text: "C. share", value: "C" },
+            { text: "D. pick up", value: "D" }
+        ],
+        answer: "C",
+        explanation: `
+            <p><strong>1. Từ vựng:</strong> <u>split</u> (v): phân chia, chia sẻ.</p>
+            <p>A. join (v): tham gia / kết nối.</p>
+            <p>B. break (v): làm gãy / vỡ.</p>
+            <p>C. share (v): chia sẻ, phân chia.</p>
+            <p>D. pick up (v): nhặt lên.</p>
+            <p><strong>2. Dịch câu:</strong> "Chúng tôi luôn chia sẻ việc nhà đều nhau..."</p>
+            <p><strong>3. Từ đồng nghĩa:</strong> split = share (Đáp án C).</p>
+        `
+    },
+    {
+        id: 13,
+        type: "mcq",
+        instruction: "Mark the letter A, B, C or D to indicate the word(s) CLOSEST in meaning to the underlined word(s) in each of the following questions.",
+        question: "Question 13: It is advisable that everyone in family shares the household <u>duties</u>.",
+        options: [
+            { text: "A. views", value: "A" },
+            { text: "B. ideas", value: "B" },
+            { text: "C. jobs", value: "C" },
+            { text: "D. chores", value: "D" }
+        ],
+        answer: "D",
+        explanation: `
+            <p><strong>1. Từ vựng:</strong> <u>duties</u> (n): nhiệm vụ, công việc bắt buộc.</p>
+            <p>A. views (n): quan điểm / tầm nhìn.</p>
+            <p>B. ideas (n): ý tưởng.</p>
+            <p>C. jobs (n): nghề nghiệp / công việc.</p>
+            <p>D. chores (n): công việc vặt (đặc biệt household chores = household duties: việc nhà).</p>
+            <p><strong>2. Dịch câu:</strong> "Mọi người trong gia đình nên chia sẻ công việc nhà."</p>
+            <p><strong>3. Từ đồng nghĩa:</strong> household duties = household chores (Đáp án D).</p>
+        `
+    },
+    {
+        id: 14,
+        type: "mcq",
+        instruction: "Mark the letter A, B, C or D to indicate the word(s) OPPOSITE in meaning to the underlined word(s) in each of the following questions.",
+        question: "Question 14: Parents should <u>encourage</u> their children to share the housework for the goodness of the whole family.",
+        options: [
+            { text: "A. support", value: "A" },
+            { text: "B. motivate", value: "B" },
+            { text: "C. inspire", value: "C" },
+            { text: "D. prevent", value: "D" }
+        ],
+        answer: "D",
+        explanation: `
+            <p><strong>1. Từ vựng:</strong> <u>encourage</u> (v): khuyến khích, động viên.</p>
+            <p>A. support (v): ủng hộ (đồng nghĩa).</p>
+            <p>B. motivate (v): thúc đẩy / làm động lực (đồng nghĩa).</p>
+            <p>C. inspire (v): truyền cảm hứng (đồng nghĩa).</p>
+            <p>D. prevent (v): ngăn cản, cản trở (TRÁI NGHĨA).</p>
+            <p><strong>2. Dịch câu:</strong> "Cha mẹ nên khuyến khích con cái chia sẻ việc nhà..."</p>
+            <p><strong>3. Từ trái nghĩa chọn D (prevent).</strong></p>
+        `
+    },
+    {
+        id: 15,
+        type: "mcq",
+        instruction: "Mark the letter A, B, C or D to indicate the word(s) OPPOSITE in meaning to the underlined word(s) in each of the following questions.",
+        question: "Question 15: In my family, my father always takes charge of doing the <u>heavy</u> lifting.",
+        options: [
+            { text: "A. strong", value: "A" },
+            { text: "B. hard", value: "B" },
+            { text: "C. light", value: "C" },
+            { text: "D. huge", value: "D" }
+        ],
+        answer: "C",
+        explanation: `
+            <p><strong>1. Từ vựng:</strong> <u>heavy</u> (adj): nặng / nặng nhọc.</p>
+            <p>A. strong (adj): khỏe mạnh.</p>
+            <p>B. hard (adj): vất vả, cứng.</p>
+            <p>C. light (adj): nhẹ nhàng (TRÁI NGHĨA với heavy).</p>
+            <p>D. huge (adj): to lớn.</p>
+            <p><strong>2. Dịch câu:</strong> "Trong gia đình tôi, bố tôi luôn chịu trách nhiệm làm những việc nặng nhọc."</p>
+            <p><strong>3. Trái nghĩa của heavy là light (Đáp án C).</strong></p>
+        `
+    },
+
+    // READING CLOZE TEST 1: COFFEE ADVERTISEMENT
+    {
+        id: 16,
+        type: "mcq",
+        section: "READING CLOZE TEST - ADVERTISEMENT",
+        instruction: "Read the advertisement/ announcement and mark the letter A, B, C, or D on your answer sheet to indicate the correct option that best fits each of the numbered blanks from 16 to 18.",
+        passage: `
+            <div class="reading-passage">
+                <h4>GIVE YOURSELF A COFFEE BREAK!</h4>
+                <p><strong>THINK BETTER!</strong><br>Stop working (16)_______ a while and take a cheerful cup of coffee. Your mind is clearer and solutions are nearer to you.</p>
+                <p><strong>WORK BETTER!</strong><br>Get ready for your work with (17)_______ fragrant cup of coffee. Its gentle stimulation is your cue for better work.</p>
+                <p><strong>FEEL BETTER!</strong><br>Stop getting tired with the kind of black or brown liquid known as coffee. As long as you take it, your boredom and (18)_______ will be gone.</p>
+            </div>
+        `,
+        question: "Question 16:",
+        options: [
+            { text: "A. for", value: "A" },
+            { text: "B. with", value: "B" },
+            { text: "C. at", value: "C" },
+            { text: "D. of", value: "D" }
+        ],
+        answer: "A",
+        explanation: `
+            <p><strong>1. Phân tích cụm từ:</strong> <strong>for a while</strong>: một lát, một lúc ngắn.</p>
+            <p><strong>2. Dịch nghĩa:</strong> "Hãy ngừng làm việc một lúc và thưởng thức một tách cà phê vui vẻ."</p>
+            <p><strong>3. Đáp án A (for)</strong> là giới từ chuẩn đi trong cụm "for a while".</p>
+        `
+    },
+    {
+        id: 17,
+        type: "mcq",
+        instruction: "Read the advertisement and mark the letter A, B, C, or D.",
+        question: "Question 17:",
+        options: [
+            { text: "A. the", value: "A" },
+            { text: "B. an", value: "B" },
+            { text: "C. a", value: "C" },
+            { text: "D. no article", value: "D" }
+        ],
+        answer: "C",
+        explanation: `
+            <p><strong>1. Phân tích mạo từ:</strong> Sau vị trí trống là tính từ "fragrant" bắt đầu bằng phụ âm /f/ và danh từ đếm được số ít "cup".</p>
+            <p> Mạo từ không xác định số ít đi với phụ âm là <strong>a</strong> (a fragrant cup of coffee).</p>
+            <p><strong>2. Chọn C (a).</strong></p>
+        `
+    },
+    {
+        id: 18,
+        type: "mcq",
+        instruction: "Read the advertisement and mark the letter A, B, C, or D.",
+        question: "Question 18:",
+        options: [
+            { text: "A. disappoint", value: "A" },
+            { text: "B. disappointedly", value: "B" },
+            { text: "C. disappointment", value: "C" },
+            { text: "D. disappointed", value: "D" }
+        ],
+        answer: "C",
+        explanation: `
+            <p><strong>1. Phân tích từ loại:</strong> Đứng sau liên từ "and" song song với danh từ "boredom" (sự chán nản) -> Cần một Danh từ (Noun).</p>
+            <p>A. disappoint (v): làm thất vọng.</p>
+            <p>B. disappointedly (adv): một cách thất vọng.</p>
+            <p>C. disappointment (n): sự thất vọng / niềm thất vọng.</p>
+            <p>D. disappointed (adj): cảm thấy thất vọng.</p>
+            <p><strong>2. Chọn C (disappointment)</strong> để đảm bảo cấu trúc song song Noun + and + Noun.</p>
+        `
+    },
+
+    // READING CLOZE TEST 2: HOUSEHOLD CHORES
+    {
+        id: 19,
+        type: "mcq",
+        section: "READING CLOZE TEST - HOUSEHOLD CHORES",
+        instruction: "Read the following passage and mark the letter A, B, C, or D on your answer sheet to indicate the correct word or phrase that best fits each of the numbered blanks from 19 to 23.",
+        passage: `
+            <div class="reading-passage">
+                <p>Children can learn a lot from doing household chores. Doing chores helps children learn about what they need to do to care (19)_______ themselves, a home and a family. They learn skills (20)_______ they can use in their adult lives like preparing meals, cleaning, organising and gardening. Being involved in chores also gives children experience of relationship skills like communicating clearly, negotiating, cooperating and working as (21)_______ team. And when children contribute to family life, they might feel competent and responsible. Even if they don't enjoy the chore, when they keep going, they can feel (22)_______ that they've finished the task. Sharing housework can also help families work better and reduce family stress. When children help out, chores get done sooner (23)_______ parents have less to do. This frees up time for the family to do fun things together.</p>
+            </div>
+        `,
+        question: "Question 19:",
+        options: [
+            { text: "A. on", value: "A" },
+            { text: "B. in", value: "B" },
+            { text: "C. of", value: "C" },
+            { text: "D. for", value: "D" }
+        ],
+        answer: "D",
+        explanation: `
+            <p><strong>1. Cấu trúc động từ:</strong> <strong>care for somebody/something</strong> = chăm sóc, quan tâm ai/cái gì (đồng nghĩa với take care of).</p>
+            <p><strong>2. Dịch câu:</strong> "...chăm sóc bản thân, nhà cửa và gia đình."</p>
+            <p><strong>3. Đáp án D (for) là chính xác.</strong></p>
+        `
+    },
+    {
+        id: 20,
+        type: "mcq",
+        instruction: "Read the passage and mark the letter A, B, C, or D.",
+        question: "Question 20:",
+        options: [
+            { text: "A. when", value: "A" },
+            { text: "B. which", value: "B" },
+            { text: "C. who", value: "C" },
+            { text: "D. where", value: "D" }
+        ],
+        answer: "B",
+        explanation: `
+            <p><strong>1. Phân tích đại từ quan hệ (Relative Pronoun):</strong></p>
+            <p> Thay thế cho danh từ chỉ vật "skills" (các kỹ năng) đóng vai trò tân ngữ -> Sử dụng đại từ quan hệ <strong>which</strong> (hoặc that).</p>
+            <p><strong>2. Chọn B (which).</strong></p>
+        `
+    },
+    {
+        id: 21,
+        type: "mcq",
+        instruction: "Read the passage and mark the letter A, B, C, or D.",
+        question: "Question 21:",
+        options: [
+            { text: "A. a", value: "A" },
+            { text: "B. any", value: "B" },
+            { text: "C. every", value: "C" },
+            { text: "D. some", value: "D" }
+        ],
+        answer: "A",
+        explanation: `
+            <p><strong>1. Phân tích Cụm từ cố định (Collocation):</strong></p>
+            <p> <strong>work as a team</strong>: làm việc như một đội / làm việc nhóm.</p>
+            <p><strong>2. Chọn A (a).</strong></p>
+        `
+    },
+    {
+        id: 22,
+        type: "mcq",
+        instruction: "Read the passage and mark the letter A, B, C, or D.",
+        question: "Question 22:",
+        options: [
+            { text: "A. satisfactory", value: "A" },
+            { text: "B. satisfied", value: "B" },
+            { text: "C. satisfaction", value: "C" },
+            { text: "D. satisfy", value: "D" }
+        ],
+        answer: "B",
+        explanation: `
+            <p><strong>1. Phân tích ngữ pháp tính từ chỉ cảm xúc người:</strong></p>
+            <p> Sau động từ nối "feel" + Tính từ (Adjective). Cảm xúc của con người (they feel...) -> dùng tính từ đuôi -ed: <strong>satisfied</strong> (hài lòng).</p>
+            <p> Satisfactory (adj) thường mô tả bản chất của sự vật/sự việc.</p>
+            <p><strong>2. Chọn B (satisfied).</strong></p>
+        `
+    },
+    {
+        id: 23,
+        type: "mcq",
+        instruction: "Read the passage and mark the letter A, B, C, or D.",
+        question: "Question 23:",
+        options: [
+            { text: "A. because", value: "A" },
+            { text: "B. otherwise", value: "B" },
+            { text: "C. and", value: "C" },
+            { text: "D. but", value: "D" }
+        ],
+        answer: "C",
+        explanation: `
+            <p><strong>1. Phân tích liên từ:</strong></p>
+            <p> "...việc nhà xong sớm hơn VÀ bố mẹ có ít việc phải làm hơn."</p>
+            <p> Hai vế mang quan hệ bổ sung kết quả song song -> dùng liên từ <strong>and</strong> (và).</p>
+            <p><strong>2. Chọn C (and).</strong></p>
+        `
+    },
+
+    // READING COMPREHENSION: FAMILY TYPES
+    {
+        id: 24,
+        type: "mcq",
+        section: "READING COMPREHENSION - FAMILY TYPES",
+        instruction: "Read the following passage and mark the letter A, B, C, or D on your answer sheet to indicate the correct answer to each of the questions from 24 to 28.",
+        passage: `
+            <div class="reading-passage">
+                <p>Family types vary in different countries and among different cultures. In Western, industrialized societies, the nuclear family ranks as the most common family type. It consists of a father, a mother and their children. But nuclear families exist together with many other types of family units. In the single-parent family, for example, a mother or a father heads the family alone. A <u>blended</u> family is formed when a divorced or widowed parent remarries. As divorce rates have risen, the number of single-parent and blended families has increased.</p>
+                <p>In many parts of the world, parents and children live together with other family members under the same roof. These complex families usually contain several generations of family members, including grandparents, parents and children. They may also include brothers or sisters and their families, uncles, aunts and cousins. Even when relatives do not live together, they still consider themselves members of the same extended family includes grandparents, uncles, aunts and cousins.</p>
+            </div>
+        `,
+        question: "Question 24: The nuclear family ranks as the most common family type _________.",
+        options: [
+            { text: "A. in many industrialized countries", value: "A" },
+            { text: "B. in countries with nuclear weapons", value: "B" },
+            { text: "C. that consists of more than two generations", value: "C" },
+            { text: "D. that leads to the divorce of parents", value: "D" }
+        ],
+        answer: "A",
+        explanation: `
+            <p><strong>1. Tìm thông tin trong bài đọc:</strong> Đoạn 1 dòng 1-2 ghi rõ: <em>"In Western, industrialized societies, the nuclear family ranks as the most common family type."</em></p>
+            <p><strong>2. Chọn A (in many industrialized countries).</strong></p>
+        `
+    },
+    {
+        id: 25,
+        type: "mcq",
+        instruction: "Read the passage and mark the letter A, B, C, or D.",
+        question: "Question 25: In the single-parent family, _________.",
+        options: [
+            { text: "A. there are often no children", value: "A" },
+            { text: "B. only one parent lives with his or her child or children", value: "B" },
+            { text: "C. the number of blended children has increased", value: "C" },
+            { text: "D. children live with their grandparents", value: "D" }
+        ],
+        answer: "B",
+        explanation: `
+            <p><strong>1. Tìm thông tin trong bài:</strong> Đoạn 1 dòng 4: <em>"In the single-parent family, for example, a mother or a father heads the family alone."</em> (Chỉ có bố hoặc mẹ làm chủ gia đình một mình).</p>
+            <p><strong>2. Chọn B.</strong></p>
+        `
+    },
+    {
+        id: 26,
+        type: "mcq",
+        instruction: "Read the passage and mark the letter A, B, C, or D.",
+        question: "Question 26: Grandparents, parents and children are mentioned as _________.",
+        options: [
+            { text: "A. the three typical generations of an extended family", value: "A" },
+            { text: "B. three branches of a family tree", value: "B" },
+            { text: "C. the closest and happiest relatives in family units", value: "C" },
+            { text: "D. a complex combination", value: "D" }
+        ],
+        answer: "A",
+        explanation: `
+            <p><strong>1. Tìm thông tin trong bài:</strong> Đoạn 2 dòng 2-3 đề cập: <em>"These complex families usually contain several generations of family members, including grandparents, parents and children."</em> -> 3 thế hệ điển hình của gia đình đa thế hệ (extended family).</p>
+            <p><strong>2. Chọn A.</strong></p>
+        `
+    },
+    {
+        id: 27,
+        type: "mcq",
+        instruction: "Read the passage and mark the letter A, B, C, or D.",
+        question: "Question 27: The second paragraph is about _________.",
+        options: [
+            { text: "A. American culture", value: "A" },
+            { text: "B. relatives and family members", value: "B" },
+            { text: "C. the relationship between family members", value: "C" },
+            { text: "D. the extended family", value: "D" }
+        ],
+        answer: "D",
+        explanation: `
+            <p><strong>1. Phân tích ý chính đoạn 2:</strong> Toàn bộ đoạn 2 miêu tả gia đình có nhiều thế hệ sống chung hoặc liên kết với nhau (extended family - đại gia đình).</p>
+            <p><strong>2. Chọn D (the extended family).</strong></p>
+        `
+    },
+    {
+        id: 28,
+        type: "mcq",
+        instruction: "Read the passage and mark the letter A, B, C, or D.",
+        question: "Question 28: The word <u>'blended'</u> in paragraph 1 is closest in meaning to _________.",
+        options: [
+            { text: "A. complex", value: "A" },
+            { text: "B. married", value: "B" },
+            { text: "C. mixed", value: "C" },
+            { text: "D. formed", value: "D" }
+        ],
+        answer: "C",
+        explanation: `
+            <p><strong>1. Tra từ vựng:</strong> <u>blended</u> (adj): pha trộn, hỗn hợp (chỉ gia đình ghép / con chung con riêng sau khi tái hôn).</p>
+            <p> Từ gần nghĩa nhất là <strong>mixed</strong> (adj): trộn lẫn, kết hợp.</p>
+            <p><strong>2. Chọn C (mixed).</strong></p>
+        `
+    },
+
+    // PART II: PHẦN TỰ LUẬN (CHUYỂN THÀNH TRẮC NGHIỆM TƯƠNG TÁC DỄ CHỌN)
+    {
+        id: 29,
+        type: "mcq",
+        section: "II. PHẦN TỰ LUẬN (Biến đổi dạng Trắc nghiệm chuẩn hóa)",
+        instruction: "Complete the sentence with the correct form of the word in capitals.",
+        question: "Question 29: It is parents' duty and _________ to join hands to take care of their children and give them a happy home. (RESPONSIBLE)",
+        options: [
+            { text: "A. responsibility", value: "A" },
+            { text: "B. responsibly", value: "B" },
+            { text: "C. responsible", value: "C" },
+            { text: "D. irresponsibility", value: "D" }
+        ],
+        answer: "A",
+        explanation: `
+            <p><strong>1. Phân tích từ loại:</strong> Đứng sau sở hữu cách "parents' duty and..." -> Cần một Danh từ (Noun) song song với duty.</p>
+            <p> Chuyển đổi tính từ RESPONSIBLE thành danh từ: <strong>responsibility</strong> (trách nhiệm).</p>
+            <p><strong>2. Dịch câu:</strong> "Đó là bổn phận và trách nhiệm của cha mẹ trong việc chung tay chăm sóc con cái..."</p>
+            <p><strong>3. Chọn A.</strong></p>
+        `
+    },
+    {
+        id: 30,
+        type: "mcq",
+        instruction: "Complete the sentence with the correct form of the word in capitals.",
+        question: "Question 30: The measures should help create jobs and _________ the economy. (STRONG)",
+        options: [
+            { text: "A. strongly", value: "A" },
+            { text: "B. strengthen", value: "B" },
+            { text: "C. strength", value: "C" },
+            { text: "D. strengthening", value: "D" }
+        ],
+        answer: "B",
+        explanation: `
+            <p><strong>1. Phân tích từ loại:</strong> Đứng sau động từ khuyết thiếu "should help create... and..." -> Cần Động từ nguyên thể (Verb bare).</p>
+            <p> Động từ chuyển từ STRONG (adj) là <strong>strengthening / strengthen</strong> (v): củng cố, làm mạnh lên.</p>
+            <p><strong>2. Dịch câu:</strong> "Các biện pháp này nên giúp tạo ra việc làm và củng cố nền kinh tế."</p>
+            <p><strong>3. Chọn B (strengthen).</strong></p>
+        `
+    },
+    {
+        id: 31,
+        type: "mcq",
+        instruction: "Complete the sentence with the correct form of the word in capitals.",
+        question: "Question 31: She cleans up _________ after she has finished cooking. (SPOTLESS)",
+        options: [
+            { text: "A. spotlessly", value: "A" },
+            { text: "B. spotless", value: "B" },
+            { text: "C. spotlessness", value: "C" },
+            { text: "D. spotted", value: "D" }
+        ],
+        answer: "A",
+        explanation: `
+            <p><strong>1. Phân tích từ loại:</strong> Bổ nghĩa cho động từ hành động "cleans up" -> Cần một Trạng từ (Adverb).</p>
+            <p> Trạng từ của SPOTLESS là <strong>spotlessly</strong> (adv): một cách sạch sẽ không dấu vết.</p>
+            <p><strong>2. Dịch câu:</strong> "Cô ấy dọn dẹp sạch sẽ tinh tươm sau khi nấu ăn xong."</p>
+            <p><strong>3. Chọn A.</strong></p>
+        `
+    },
+    {
+        id: 32,
+        type: "mcq",
+        instruction: "Complete the sentence with the correct form of the word in capitals.",
+        question: "Question 32: I'm lucky to have such a(n) _________ brother who always gives me help when I need it. (SUPPORT)",
+        options: [
+            { text: "A. support", value: "A" },
+            { text: "B. supportive", value: "B" },
+            { text: "C. supporter", value: "C" },
+            { text: "D. supportively", value: "D" }
+        ],
+        answer: "B",
+        explanation: `
+            <p><strong>1. Phân tích từ loại:</strong> Đứng trước danh từ "brother" -> Cần một Tính từ (Adjective).</p>
+            <p> Tính từ từ gốc SUPPORT là <strong>supportive</strong> (adj): hay giúp đỡ, hay đem lại sự ủng hộ.</p>
+            <p><strong>2. Dịch câu:</strong> "Tôi thật may mắn khi có một người anh trai luôn sẵn lòng hỗ trợ, người luôn giúp đỡ tôi mỗi khi tôi cần."</p>
+            <p><strong>3. Chọn B.</strong></p>
+        `
+    },
+
+    // REORDERING SENTENCES
+    {
+        id: 33,
+        type: "mcq",
+        instruction: "Reorder the given words to make a meaningful sentence.",
+        question: "Question 33: husband / My / responsible / household / is / finance / for",
+        options: [
+            { text: "A. My husband is responsible for household finance.", value: "A" },
+            { text: "B. My responsible husband is for household finance.", value: "B" },
+            { text: "C. Household finance is responsible for my husband.", value: "C" },
+            { text: "D. My husband is household finance for responsible.", value: "D" }
+        ],
+        answer: "A",
+        explanation: `
+            <p><strong>1. Cấu trúc chuẩn:</strong> S + tobe + responsible for + N (Chịu trách nhiệm về điều gì).</p>
+            <p> S = My husband; tobe = is; adj = responsible for; N = household finance.</p>
+            <p><strong>2. Dịch nghĩa:</strong> "Chồng tôi chịu trách nhiệm về tài chính gia đình."</p>
+            <p><strong>3. Chọn A.</strong></p>
+        `
+    },
+    {
+        id: 34,
+        type: "mcq",
+        instruction: "Reorder the given words to make a meaningful sentence.",
+        question: "Question 34: and /a / works / person / at / who / home / takes / Homemaker / care / and / the / is / house / of / family.",
+        options: [
+            { text: "A. Homemaker is a person who works at home and takes care of the house and family.", value: "A" },
+            { text: "B. A homemaker is a person who works at home and takes care of the house and family.", value: "B" },
+            { text: "C. Person who works at home and takes care of house is a homemaker.", value: "C" },
+            { text: "D. A family homemaker is who takes care of the house and works at home.", value: "D" }
+        ],
+        answer: "B",
+        explanation: `
+            <p><strong>1. Cấu trúc định nghĩa chuẩn:</strong> A homemaker + is a person + who (Mệnh đề quan hệ) + V1 (works at home) + and + V2 (takes care of the house and family).</p>
+            <p><strong>2. Dịch nghĩa:</strong> "Người nội trợ là người làm việc ở nhà và chăm sóc nhà cửa cũng như gia đình."</p>
+            <p><strong>3. Chọn B (Cần mạo từ 'A' đứng đầu câu).</strong></p>
+        `
+    },
+    {
+        id: 35,
+        type: "mcq",
+        instruction: "Reorder the given words to make a meaningful sentence.",
+        question: "Question 35: My / every / goes / My / the / for / supermarket / mom / to / Sunday / shopping.",
+        options: [
+            { text: "A. My mom goes to the supermarket for shopping every Sunday.", value: "A" },
+            { text: "B. Every Sunday goes my mom to the supermarket for shopping.", value: "B" },
+            { text: "C. My mom goes for shopping to the supermarket every Sunday.", value: "C" },
+            { text: "D. My mom goes shopping for the supermarket every Sunday.", value: "D" }
+        ],
+        answer: "A",
+        explanation: `
+            <p><strong>1. Trật tự từ chuẩn:</strong> S (My mom) + V (goes to) + Place (the supermarket) + Purpose (for shopping) + Time (every Sunday).</p>
+            <p><strong>2. Dịch nghĩa:</strong> "Mẹ tôi đi siêu thị sắm đồ vào mỗi Chủ Nhật."</p>
+            <p><strong>3. Chọn A.</strong></p>
+        `
+    },
+    {
+        id: 36,
+        type: "mcq",
+        instruction: "Reorder the given words to make a meaningful sentence.",
+        question: "Question 36: for / sometimes / has / Bich / noodle / soup / chicken / breakfast.",
+        options: [
+            { text: "A. Bich has chicken noodle soup for breakfast sometimes.", value: "A" },
+            { text: "B. Bich sometimes has chicken noodle soup for breakfast.", value: "B" },
+            { text: "C. Sometimes Bich chicken noodle soup has for breakfast.", value: "C" },
+            { text: "D. For breakfast Bich has sometimes chicken noodle soup.", value: "D" }
+        ],
+        answer: "B",
+        explanation: `
+            <p><strong>1. Vị trí trạng từ chỉ tần suất (Adverb of frequency):</strong> "sometimes" đứng trước động từ thường "has".</p>
+            <p> Cấu trúc: S + sometimes + V + N + for breakfast.</p>
+            <p><strong>2. Dịch nghĩa:</strong> "Bích thỉnh thoảng ăn phở gà cho bữa sáng."</p>
+            <p><strong>3. Chọn B.</strong></p>
+        `
+    },
+
+    // SENTENCE TRANSFORMATION / REWRITING
+    {
+        id: 37,
+        type: "mcq",
+        instruction: "Use the given words or phrases to make a meaningful sentence.",
+        question: "Question 37: my mother / cook / dinner / and / my father / wash / the dishes / after meal",
+        options: [
+            { text: "A. My mother cooks dinner and my father washes the dishes after the meal.", value: "A" },
+            { text: "B. My mother is cooking dinner and my father is washing the dishes after meal.", value: "B" },
+            { text: "C. My mother cook dinner and my father wash the dishes after meal.", value: "C" },
+            { text: "D. My mother cooked dinner and my father washed dishes after meal.", value: "D" }
+        ],
+        answer: "A",
+        explanation: `
+            <p><strong>1. Phân tích thì & hòa hợp S-V:</strong></p>
+            <p> Diễn tả thói quen hàng ngày -> Thì hiện tại đơn.</p>
+            <p> "My mother" (số ít) -> cooks / "my father" (số ít) -> washes.</p>
+            <p> Cần thêm mạo từ "the meal".</p>
+            <p><strong>2. Dịch nghĩa:</strong> "Mẹ tôi nấu ăn tối và bố tôi rửa bát sau bữa ăn."</p>
+            <p><strong>3. Chọn A.</strong></p>
+        `
+    },
+    {
+        id: 38,
+        type: "mcq",
+        instruction: "Use the given words or phrases to make a meaningful sentence.",
+        question: "Question 38: we / help / parents / do / housework / because / we / want / them / have / more / free time",
+        options: [
+            { text: "A. We help our parents do housework because we want them to have more free time.", value: "A" },
+            { text: "B. We help parents doing housework because we want them have more free time.", value: "B" },
+            { text: "C. We help our parents to doing housework because we want them to have more free time.", value: "C" },
+            { text: "D. We help parents do housework because we want they have more free time.", value: "D" }
+        ],
+        answer: "A",
+        explanation: `
+            <p><strong>1. Phân tích cấu trúc ngữ pháp:</strong></p>
+            <p> Cấu trúc 1: <strong>help sb (to) do sth</strong> -> help our parents do housework.</p>
+            <p> Cấu trúc 2: <strong>want sb to do sth</strong> -> want them to have more free time.</p>
+            <p><strong>2. Dịch nghĩa:</strong> "Chúng tôi giúp bố mẹ làm việc nhà vì chúng tôi muốn họ có nhiều thời gian rảnh rỗi hơn."</p>
+            <p><strong>3. Chọn A.</strong></p>
+        `
+    },
+    {
+        id: 39,
+        type: "mcq",
+        instruction: "Use the given words or phrases to make a meaningful sentence.",
+        question: "Question 39: when / I / finish / homework / I / often / clean / my room / and / water / the plants",
+        options: [
+            { text: "A. When I finish my homework, I often clean my room and water the plants.", value: "A" },
+            { text: "B. When I am finishing homework, I often clean my room and water the plants.", value: "B" },
+            { text: "C. When I finish homework, I often cleaning my room and water the plants.", value: "C" },
+            { text: "D. When I finished my homework, I often clean my room and water the plants.", value: "D" }
+        ],
+        answer: "A",
+        explanation: `
+            <p><strong>1. Phân tích thì ngữ pháp:</strong> Diễn tả thói quen lặp đi lặp lại ở hiện tại -> Dùng thì Hiện tại đơn cả 2 vế.</p>
+            <p> Cấu trúc: When + S + V(hiện tại đơn), S + often + V1 + and + V2.</p>
+            <p><strong>2. Dịch nghĩa:</strong> "Khi tôi làm xong bài tập về nhà, tôi thường dọn dẹp phòng và tưới cây."</p>
+            <p><strong>3. Chọn A.</strong></p>
+        `
+    },
+    {
+        id: 40,
+        type: "mcq",
+        instruction: "Use the given words or phrases to make a meaningful sentence.",
+        question: "Question 40: my family / share / chores / so / our home / always / look / clean / and / comfortable",
+        options: [
+            { text: "A. My family shares chores, so our home always looks clean and comfortable.", value: "A" },
+            { text: "B. My family share chores, so our home always look clean and comfortable.", value: "B" },
+            { text: "C. My family is sharing chores, so our home is looking clean and comfortable.", value: "C" },
+            { text: "D. My family shares chores, so our home always looking clean and comfortable.", value: "D" }
+        ],
+        answer: "A",
+        explanation: `
+            <p><strong>1. Phân tích ngữ pháp:</strong></p>
+            <p> "My family" (danh từ tập hợp tính số ít) -> shares.</p>
+            <p> Liên từ "so" đứng trước mệnh đề kết quả.</p>
+            <p> "Our home" (chủ ngữ số ít) -> động từ nối "looks" + tính từ "clean and comfortable".</p>
+            <p><strong>2. Dịch nghĩa:</strong> "Gia đình tôi chia sẻ việc nhà, vì vậy ngôi nhà của chúng tôi luôn trông sạch sẽ và thoải mái."</p>
+            <p><strong>3. Chọn A.</strong></p>
+        `
+    }
+];
+
+// Fisher-Yates Shuffle Algorithm for Array
+function shuffleArray(array) {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+let userAnswers = {};
+let preparedQuestions = [];
+
+function renderQuiz() {
+    const container = document.getElementById('quiz-container');
+    container.innerHTML = '';
+
+    let currentSection = '';
+
+    preparedQuestions = rawQuestions.map(q => {
+        // Shuffle options for MCQ
+        const shuffledOptions = shuffleArray(q.options);
+        return {
+            ...q,
+            shuffledOptions: shuffledOptions
+        };
+    });
+
+    preparedQuestions.forEach((q, index) => {
+        // Render section header if new
+        if (q.section && q.section !== currentSection) {
+            currentSection = q.section;
+            const secHeader = document.createElement('div');
+            secHeader.className = 'section-header';
+            secHeader.innerHTML = currentSection;
+            container.appendChild(secHeader);
+        }
+
+        // Question Card
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.id = `q-card-${q.id}`;
+
+        let htmlContent = '';
+        if (q.passage) {
+            htmlContent += q.passage;
+        }
+
+        htmlContent += `<div class="question-number">Câu ${index + 1} / 40</div>`;
+        if (q.instruction) {
+            htmlContent += `<div style="font-style: italic; color: #636e72; font-size: 0.95rem; margin-bottom: 8px;">${q.instruction}</div>`;
+        }
+        htmlContent += `<div class="question-text">${q.question}</div>`;
+
+        // Options Grid
+        htmlContent += `<div class="options-grid" id="options-${q.id}">`;
+        q.shuffledOptions.forEach(opt => {
+            htmlContent += `
+                <button class="option-btn" onclick="selectAnswer(${q.id}, '${opt.value}', this)">
+                    ${opt.text}
+                </button>
+            `;
+        });
+        htmlContent += `</div>`;
+
+        // Explanation Box
+        htmlContent += `
+            <div class="explanation-box" id="explain-${q.id}">
+                <div class="explanation-title">💡 GIẢI THÍCH CHI TIẾT TỪ MS LÊ HẰNG:</div>
+                <div class="explanation-content">${q.explanation}</div>
+            </div>
+        `;
+
+        card.innerHTML = htmlContent;
+        container.appendChild(card);
+    });
+}
+
+function selectAnswer(questionId, selectedValue, btnElement) {
+    if (userAnswers[questionId] !== undefined) return; // Prevent re-selection
+
+    userAnswers[questionId] = selectedValue;
+    const qObj = preparedQuestions.find(q => q.id === questionId);
+    const optionsContainer = document.getElementById(`options-${questionId}`);
+    const buttons = optionsContainer.querySelectorAll('.option-btn');
+    const cardElement = document.getElementById(`q-card-${questionId}`);
+
+    buttons.forEach(btn => {
+        btn.classList.add('disabled');
+    });
+
+    if (selectedValue === qObj.answer) {
+        btnElement.classList.add('correct');
+        playCorrectSound();
+        confetti({
+            particleCount: 40,
+            spread: 60,
+            origin: { y: 0.7 }
+        });
+    } else {
+        btnElement.classList.add('wrong');
+        cardElement.classList.add('shake');
+        playWrongSound();
+        setTimeout(() => {
+            cardElement.classList.remove('shake');
+        }, 500);
+
+        // Highlight the correct one
+        buttons.forEach(btn => {
+            if (btn.innerText.includes(qObj.answer + '.') || btn.innerText.startsWith(qObj.answer)) {
+                btn.classList.add('correct');
+            }
+        });
+    }
+
+    // Show Explanation
+    const expBox = document.getElementById(`explain-${questionId}`);
+    if (expBox) {
+        expBox.style.display = 'block';
+    }
+}
+
+function calculateFinalScore() {
+    let totalCorrect = 0;
+    const totalQuestions = preparedQuestions.length;
+
+    preparedQuestions.forEach(q => {
+        if (userAnswers[q.id] === q.answer) {
+            totalCorrect++;
+        }
+    });
+
+    const percentage = (totalCorrect / totalQuestions) * 100;
+    const scoreDisplay = document.getElementById('scoreDisplay');
+    const feedbackText = document.getElementById('feedbackText');
+
+    scoreDisplay.innerText = `${totalCorrect}/${totalQuestions}`;
+
+    if (percentage < 50) {
+        feedbackText.innerText = "Điểm lần này chưa cao lắm, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau! 💪🌟";
+    } else if (percentage >= 60 && percentage <= 80) {
+        feedbackText.innerText = "Con đã có tiến bộ khá ổn rồi, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau! 🎉👏";
+    } else {
+        feedbackText.innerText = "Làm tốt lắm, con cố gắng rinh điểm 10 ở lần sau nha! 🔥🏆✨";
+    }
+
+    document.getElementById('scoreModal').style.display = 'flex';
+    
+    // Launch bigger confetti on finish
+    if (percentage >= 60) {
+        confetti({
+            particleCount: 120,
+            spread: 100,
+            origin: { y: 0.5 }
+        });
+    }
+}
+
+function closeModal() {
+    document.getElementById('scoreModal').style.display = 'none';
+}
+
+// Initialize on page load
+window.onload = () => {
+    renderQuiz();
+};
+</script>
+</body>
+</html>
